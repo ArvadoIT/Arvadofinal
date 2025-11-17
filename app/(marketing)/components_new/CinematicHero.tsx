@@ -43,13 +43,13 @@ export default function CinematicHero() {
 		return () => clearTimeout(timer);
 	}, []);
 
-	const headline = "Premium web, AI, and growth—crafted as one cinematic story.";
+	const headline = "Premium web, AI, and growth—crafted into one cinematic story.";
 	const subheadline = "We ship momentum systems—design, automation, and campaigns that move in sync and compound results.";
 
 	return (
 		<section 
 			ref={sectionRef} 
-			className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-24"
+			className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-32 pb-16 md:pb-24"
 		>
 			{/* Animated Background Layers */}
 			<div className="absolute inset-0 -z-10">
@@ -189,7 +189,7 @@ export default function CinematicHero() {
 			{/* Main Content */}
 			<motion.div
 				ref={containerRef}
-				className="relative z-10 mx-auto w-full max-w-6xl px-6 text-center lg:px-8"
+				className="relative z-10 mx-auto w-full max-w-5xl px-4 text-center sm:px-6 lg:px-8"
 				style={{
 					y: contentY,
 					opacity: contentOpacity,
@@ -212,6 +212,7 @@ export default function CinematicHero() {
 									},
 								},
 							}}
+							className="w-full"
 						>
 							{/* Tag */}
 							<motion.div
@@ -228,7 +229,7 @@ export default function CinematicHero() {
 										},
 									},
 								}}
-								className="mb-8 md:mb-10"
+								className="mb-6 md:mb-8"
 							>
 								<motion.span
 									className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-2 text-xs uppercase tracking-[0.4em] text-white/70 backdrop-blur-md"
@@ -255,46 +256,69 @@ export default function CinematicHero() {
 							</motion.div>
 
 							{/* Headline with character-by-character reveal */}
-							<motion.h1
-								className="mb-8 md:mb-10 text-[clamp(2.5rem,8vw,6rem)] font-bold leading-[1.05] tracking-tight text-white"
-								variants={{
-									hidden: { opacity: 0 },
-									visible: { opacity: 1 },
-								}}
-							>
-								{headline.split("").map((char, i) => (
-									<motion.span
-										key={i}
-										className="inline-block"
-										variants={{
-											hidden: {
-												opacity: 0,
-												y: 50,
-												rotateX: -90,
-												filter: "blur(10px)",
-											},
-											visible: {
-												opacity: 1,
-												y: 0,
-												rotateX: 0,
-												filter: "blur(0px)",
-												transition: {
-													type: "spring",
-													stiffness: 150,
-													damping: 12,
-													delay: i * 0.03,
-												},
-											},
-										}}
-										style={{
-											display: "inline-block",
-											transformStyle: "preserve-3d",
-										}}
-									>
-										{char === " " ? "\u00A0" : char}
-									</motion.span>
-								))}
-							</motion.h1>
+							<div className="w-full max-w-5xl mx-auto mb-6 md:mb-8">
+								<motion.h1
+									className="text-[clamp(1.875rem,5.5vw,4.5rem)] font-bold leading-[1.15] tracking-[-0.02em] text-white break-normal hyphens-none"
+									variants={{
+										hidden: { opacity: 0 },
+										visible: { opacity: 1 },
+									}}
+								>
+									{headline.split(" ").map((word, wordIndex, words) => {
+										const wordSpan = (
+											<span key={wordIndex} className="inline-block whitespace-nowrap">
+												{word.split("").map((char, charIndex) => {
+													// Clean any hidden characters (soft hyphens, zero-width spaces, etc.)
+													const cleanChar = char.replace(/[\u00AD\u200B-\u200D\uFEFF]/g, '');
+													return (
+														<motion.span
+															key={`${wordIndex}-${charIndex}`}
+															className="inline-block"
+															variants={{
+																hidden: {
+																	opacity: 0,
+																	y: 50,
+																	rotateX: -90,
+																	filter: "blur(10px)",
+																},
+																visible: {
+																	opacity: 1,
+																	y: 0,
+																	rotateX: 0,
+																	filter: "blur(0px)",
+																	transition: {
+																		type: "spring",
+																		stiffness: 150,
+																		damping: 12,
+																		delay: (wordIndex * 10 + charIndex) * 0.03,
+																	},
+																},
+															}}
+															style={{
+																display: "inline-block",
+																transformStyle: "preserve-3d",
+															}}
+														>
+															{cleanChar}
+														</motion.span>
+													);
+												})}
+											</span>
+										);
+										
+										// Add space between words
+										if (wordIndex < words.length - 1) {
+											return (
+												<>
+													{wordSpan}
+													<span key={`space-${wordIndex}`} className="inline-block whitespace-pre"> </span>
+												</>
+											);
+										}
+										return wordSpan;
+									})}
+								</motion.h1>
+							</div>
 
 							{/* Subheadline with slide-up reveal */}
 							<motion.p
@@ -315,7 +339,7 @@ export default function CinematicHero() {
 										},
 									},
 								}}
-								className="mx-auto mb-12 md:mb-16 max-w-3xl text-lg md:text-xl text-white/70 leading-relaxed"
+								className="mx-auto mb-10 md:mb-12 max-w-2xl text-base md:text-lg text-white/70 leading-relaxed"
 							>
 								{subheadline}
 							</motion.p>
