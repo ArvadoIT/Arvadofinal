@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { 
-  Icosahedron, 
+  Sphere,
   Torus, 
   MeshDistortMaterial,
   Environment,
@@ -65,14 +65,14 @@ function Model3D({ scrollProgressRef }: { scrollProgressRef: MutableRefObject<nu
 
   return (
     <group>
-      {/* Ultra-realistic primary model - Optimized detail Icosahedron */}
-      <Icosahedron ref={meshRef} args={[1.5, 3]}>
+      {/* Ultra-realistic primary model - Smooth sphere */}
+      <Sphere ref={meshRef} args={[1.5, 64, 64]}>
         {/* @ts-ignore */}
         <MeshDistortMaterial
           ref={materialRef}
           {...materialProps}
         />
-      </Icosahedron>
+      </Sphere>
       
       {/* Ultra-realistic metallic ring - reduced segments for performance */}
       <Torus
@@ -80,14 +80,13 @@ function Model3D({ scrollProgressRef }: { scrollProgressRef: MutableRefObject<nu
         rotation={[Math.PI / 2, 0, 0]}
       >
         <meshStandardMaterial
-          color="#60a5fa" // Brighter metallic blue
-          metalness={0.98} // Almost pure metal
-          roughness={0.08} // Very smooth, reflective surface
-          envMapIntensity={3.0} // Strong environment reflections
-          emissive="#0ea5e9"
-          emissiveIntensity={0.4}
+          color="#4476BF"
+          roughness={0.3}
+          metalness={0.2}
+          emissive="#4476BF"
+          emissiveIntensity={0.06}
           transparent
-          opacity={0.95}
+          opacity={0.9}
         />
       </Torus>
       
@@ -97,10 +96,10 @@ function Model3D({ scrollProgressRef }: { scrollProgressRef: MutableRefObject<nu
         rotation={[Math.PI / 2, 0, 0]}
       >
         <meshStandardMaterial
-          color="#ffffff"
+          color="#4476BF"
           metalness={1.0}
           roughness={0.02}
-          emissive="#ffffff"
+          emissive="#4476BF"
           emissiveIntensity={0.2}
           transparent
           opacity={0.8}
