@@ -58,7 +58,12 @@ canvas {
 }
 
 /* Mobile-specific optimizations */
-@media (max-width: 640px) {
+@media (max-width: 767px) {
+  /* Enable scroll snap for mobile */
+  html {
+    scroll-snap-type: y mandatory;
+  }
+  
   /* Reduce animation complexity on mobile */
   * {
     animation-duration: 0.6s !important;

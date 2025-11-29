@@ -7,6 +7,7 @@ import { getLenisInstance } from "../lib/lenis";
 
 const navLinks = [
   { label: "Services", href: "#services" },
+  { label: "Portfolio", href: "#portfolio" },
   { label: "Process", href: "#launch" },
   { label: "Interactive Experience", href: "#showcase" },
   { label: "Contact", href: "#contact" },

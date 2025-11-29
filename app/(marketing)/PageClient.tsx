@@ -7,6 +7,7 @@ import { MotionProvider } from "./components/MotionProvider";
 import Navigation from "./components/Navigation";
 import ScrollProgress from "./components/ScrollProgress";
 import CinematicHero from "./components_new/CinematicHero";
+import Portfolio from "./components/Portfolio";
 import Contact from "./components/Contact";
 import LazyLoadSection from "./components/LazyLoadSection";
 import Footer from "./components/Footer";
@@ -56,6 +57,9 @@ export default function PageClient() {
           <Suspense fallback={null}>
             <ServiceGlobe />
           </Suspense>
+        </LazyLoadSection>
+        <LazyLoadSection>
+          <Portfolio />
         </LazyLoadSection>
         <LazyLoadSection>
           <Suspense fallback={null}>
