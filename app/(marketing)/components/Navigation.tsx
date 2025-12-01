@@ -197,7 +197,7 @@ function Navigation() {
     
     // Start looking for the element after a brief delay to allow lazy load to trigger
     setTimeout(findAndScroll, 150);
-  }, [closeMobileMenu, isHomePage, router]);
+  }, [closeMobileMenu, isHomePage]);
 
   return (
     <nav

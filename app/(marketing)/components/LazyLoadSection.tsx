@@ -82,9 +82,12 @@ export default function LazyLoadSection({
     window.addEventListener("hashchange", handleHashChange);
     document.addEventListener("click", handleClick, true);
 
+    // Capture ref.current in a variable for cleanup
+    const currentRef = ref.current;
+
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
       window.removeEventListener("hashchange", handleHashChange);
       document.removeEventListener("click", handleClick, true);
