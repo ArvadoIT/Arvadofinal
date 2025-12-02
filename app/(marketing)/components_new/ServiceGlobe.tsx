@@ -498,7 +498,7 @@ export default function ServiceGlobe() {
   );
 
   // Memoize DPR calculation to prevent recalculation on every render
-  const dpr = useMemo<[number, number]>(() => {
+  const dpr: [number, number] = useMemo((): [number, number] => {
     if (typeof window === 'undefined') return [1, 1.5];
     const width = window.innerWidth;
     const devicePixelRatio = window.devicePixelRatio || 1;
